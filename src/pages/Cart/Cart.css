@@ -1,0 +1,33 @@
+.cartBorder {
+    box-shadow: 5px 5px 10px #888888;
+    border-radius: 10px;
+}
+
+.modal-content {
+    margin-top: 30px;
+    padding: 10px;
+}
+.btn {
+    margin: 5px;
+}
+
+.modal-body {
+    margin-top: 20px;
+    height: 300px;
+    overflow-y: auto;
+}
+
+.inputQuantity {
+    width: 30px;
+    text-align: center;
+    margin-left: 60px;
+    margin-right: 150px;
+}
+
+.cartImg {
+    width: 100px;
+    height: 100px;
+    margin-right: 100px;
+    margin-left: 100px;
+    box-shadow: 2px 2px 10px #888888;
+}

@@ -1,0 +1,11 @@
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #888;
+}
+
+.imgCarousel {
+    margin-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    height: 300px;
+}
