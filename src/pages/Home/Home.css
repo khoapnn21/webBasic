@@ -4,8 +4,9 @@
 }
 
 .imgCarousel {
-    margin-top: 50px;
+    display: block;
+    height: 300px;
+    padding-top: 25px;
     margin-right: auto;
     margin-left: auto;
-    height: 300px;
 }

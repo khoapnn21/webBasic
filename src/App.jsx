@@ -8,6 +8,7 @@ import './App.css';
 import { addProducts } from './features/products/productsSlice';
 import { addUsers } from './features/users/usersSlice';
 import { addCarts } from './features/carts/cartsSlice';
+import { Fragment } from 'react';
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -46,7 +47,13 @@ function App() {
             <>
                 <Routes>
                     {publicRoutes.map((route, index) => {
-                        const Layout = DefaultLayout;
+                        let Layout = DefaultLayout;
+                        if (route.layout) {
+                            Layout = route.layout;
+                        } else if (route.layout === null) {
+                            Layout = Fragment;
+                        }
+
                         const Page = route.component;
                         return (
                             <Route

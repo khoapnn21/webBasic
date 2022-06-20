@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css';
+import CartProduct from './CartProduct';
 function Cart() {
     const navigate = useNavigate();
     const productItem = useSelector((state) => state.products);
@@ -9,13 +11,18 @@ function Cart() {
     const userName = localStorage.getItem('userName');
     const userId = users.find((user) => user.username === userName);
     const cartId = carts.find((cart) => cart.id === userId.id);
-
-    const productId = cartId.products.map((product) => product.productId);
-
-    const cartProductId = productId.map((a) =>
-        productItem.find((p) => p.id === a),
+    const cartProductId = cartId.products.map((product) =>
+        Object.assign(
+            { quantity: product.quantity },
+            productItem.find((p) => p.id === product.productId),
+        ),
     );
 
+    const [items, setItems] = useState(cartProductId);
+    console.log(items);
+    const handleDelete = (itemId) => {
+        setItems(items.filter((i) => i.id !== itemId));
+    };
     return (
         <div>
             <div className=" modal-dialog modal-fullscreen-xl-down cartBorder">
@@ -31,28 +38,15 @@ function Cart() {
                         ></button>
                     </div>
                     <div className="modal-body ">
-                        <div className="mt-4 mb-4">
-                            {cartProductId.map((product) => (
-                                <img
-                                    className="cartImg"
-                                    src={product.image}
-                                    alt={product.title}
-                                    key={product.id}
-                                />
-                            ))}
-                        </div>
-                        <div className="mt-4 mb-4">
-                            {cartId.products.map((product, index) => (
-                                <>
-                                    <span>Quantity: </span>
-                                    <input
-                                        className="inputQuantity"
-                                        readOnly
-                                        value={product.quantity}
-                                        key={index}
+                        <div className="d-grid gap-5 d-flex m-5">
+                            <div>
+                                {items.map((product) => (
+                                    <CartProduct
+                                        product={product}
+                                        onDelete={handleDelete}
                                     />
-                                </>
-                            ))}
+                                ))}
+                            </div>
                         </div>
 
                         <div>Date: {cartId.date}</div>

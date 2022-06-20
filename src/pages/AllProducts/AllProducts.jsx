@@ -4,11 +4,12 @@ import '../../components/GlobalModuleCss/GlobalModuleCss.css';
 
 const AllProducts = () => {
     const products = useSelector((state) => state.products);
+    console.log(products);
     return (
         <>
-            <div className="row row-cols-2 row-cols-md-4 g-4">
+            <div className="row row-cols-2 row-cols-md-3 g-4 ">
                 {products.map((product, index) => (
-                    <div className="col" key={index}>
+                    <div className="col w-25" key={index}>
                         <div className="card h-100 ">
                             <Link to={'/allProducts/' + product.id}>
                                 <img

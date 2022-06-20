@@ -20,14 +20,20 @@
 .inputQuantity {
     width: 30px;
     text-align: center;
-    margin-left: 60px;
-    margin-right: 150px;
 }
 
 .cartImg {
     width: 100px;
     height: 100px;
-    margin-right: 100px;
-    margin-left: 100px;
+
     box-shadow: 2px 2px 10px #888888;
+}
+
+.quantity {
+    display: inline-block;
+    height: 100px;
+}
+
+.btn-outline-danger {
+    width: 80px;
 }
