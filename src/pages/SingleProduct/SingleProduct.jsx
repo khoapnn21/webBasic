@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../components/GlobalModuleCss/GlobalModuleCss.css';
+import { addCarts } from '../../features/carts/cartsSlice';
 
+import { useDispatch } from 'react-redux/es/exports';
 const SingleProduct = () => {
+    const dispatch = useDispatch();
     const [product, setProduct] = useState({});
+
     const params = useParams();
+
     const navigate = useNavigate();
     const isUser = localStorage.getItem('token');
     useEffect(() => {
@@ -23,6 +28,16 @@ const SingleProduct = () => {
             navigate('/userLogin');
         }
     };
+
+    const handleAddToCart = () => {
+        dispatch(
+            addCarts({
+                productId: params.id,
+                quantity: 1,
+            }),
+        );
+    };
+
     return (
         <>
             <div className="row row-cols-2 row-cols-md-2 g-4">
@@ -49,12 +64,20 @@ const SingleProduct = () => {
                         </div>
                     </div>
                     <br />
-                    <button
-                        className="btn btn-outline-success"
-                        onClick={checkUser}
-                    >
-                        My Cart
-                    </button>
+                    <div>
+                        <button
+                            className="btn btn-outline-primary"
+                            onClick={handleAddToCart}
+                        >
+                            Add to Cart
+                        </button>
+                        <button
+                            className="btn btn-outline-success"
+                            onClick={checkUser}
+                        >
+                            My Cart
+                        </button>
+                    </div>
                 </div>
             </div>
         </>

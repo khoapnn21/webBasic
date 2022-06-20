@@ -11,7 +11,7 @@ const publicRoutes = [
     { path: '/', component: Home, layout: HeaderOnly },
     { path: '/allProducts', component: AllProducts },
     { path: '/allCategories', component: AllCategories },
-    { path: '/allProducts/:id', component: SingleProduct },
+    { path: '/allProducts/:id', component: SingleProduct, layout: HeaderOnly },
     { path: '/allCategories/:category', component: CategoriesProduct },
     { path: '/userLogin', component: UserLogin, layout: HeaderOnly },
     { path: '/cart', component: Cart, layout: HeaderOnly },

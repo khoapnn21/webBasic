@@ -4,7 +4,6 @@ import '../../components/GlobalModuleCss/GlobalModuleCss.css';
 
 const AllProducts = () => {
     const products = useSelector((state) => state.products);
-    console.log(products);
     return (
         <>
             <div className="row row-cols-2 row-cols-md-3 g-4 ">

@@ -2,25 +2,16 @@ import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
 import logo from './logo.svg';
 import { publicRoutes } from './routes';
 import DefaultLayout from './components/Layout/DefaultLayout/index';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import './App.css';
 import { addProducts } from './features/products/productsSlice';
 import { addUsers } from './features/users/usersSlice';
-import { addCarts } from './features/carts/cartsSlice';
+
 import { Fragment } from 'react';
+
+import './App.css';
 function App() {
     const dispatch = useDispatch();
-    useEffect(() => {
-        fetch(`https://fakestoreapi.com/users`)
-            .then((res) => res.json())
-            .then((item) => {
-                dispatch(addUsers(item));
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    }, []);
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products`)
             .then((res) => res.json())
@@ -33,15 +24,16 @@ function App() {
     }, []);
 
     useEffect(() => {
-        fetch(`https://fakestoreapi.com/carts`)
+        fetch(`https://fakestoreapi.com/users`)
             .then((res) => res.json())
             .then((item) => {
-                dispatch(addCarts(item));
+                dispatch(addUsers(item));
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
     }, []);
+
     return (
         <Router>
             <>

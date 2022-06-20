@@ -1,25 +1,41 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 import CartProduct from './CartProduct';
+import { addCarts } from '../../features/carts/cartsSlice';
+
 function Cart() {
     const navigate = useNavigate();
-    const productItem = useSelector((state) => state.products);
+    const userLocal = localStorage.getItem('userName');
     const users = useSelector((state) => state.users);
-    const carts = useSelector((state) => state.carts);
-    const userName = localStorage.getItem('userName');
-    const userId = users.find((user) => user.username === userName);
-    const cartId = carts.find((cart) => cart.id === userId.id);
-    const cartProductId = cartId.products.map((product) =>
-        Object.assign(
-            { quantity: product.quantity },
-            productItem.find((p) => p.id === product.productId),
-        ),
-    );
+    const dispatch = useDispatch();
 
-    const [items, setItems] = useState(cartProductId);
-    console.log(items);
+    const productItem = useSelector((state) => state.products);
+    const carts = useSelector((state) => state.carts);
+    const userId = users.find((user) => user.username === userLocal);
+
+    // const cartProductId = carts.products.map((product) =>
+    //     Object.assign(
+    //         { quantity: product.quantity },
+    //         productItem.find((p) => p.id === product.productId),
+    //     ),
+    // );
+    // console.log(cartProductId);
+    useEffect(() => {
+        if (userLocal) {
+            fetch(`https://fakestoreapi.com/carts/user/${userId?.id}`)
+                .then((res) => res.json())
+                .then((item) => {
+                    const product = item[0].products;
+                    dispatch(addCarts(product));
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    }, []);
+    const [items, setItems] = useState([]);
     const handleDelete = (itemId) => {
         setItems(items.filter((i) => i.id !== itemId));
     };
@@ -49,7 +65,7 @@ function Cart() {
                             </div>
                         </div>
 
-                        <div>Date: {cartId.date}</div>
+                        <div>Date:123</div>
                     </div>
                     <div className="modal-footer">
                         <button

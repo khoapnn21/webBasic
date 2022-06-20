@@ -8,6 +8,7 @@ export const cartsSlice = createSlice({
     reducers: {
         addCarts: (state, action) => {
             const newState = [...state];
+
             return newState.concat(action.payload);
         },
     },

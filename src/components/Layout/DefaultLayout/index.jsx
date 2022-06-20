@@ -5,9 +5,11 @@ function DefaultLayout({ children }) {
     return (
         <div className="wrapper">
             <Header />
-            <div className="container-fluid d-flex">
-                <SideBar />
-                <div className="content">{children}</div>
+            <div className="row">
+                <div className="col-md-2">
+                    <SideBar />
+                </div>
+                <div className="content col-md-10">{children}</div>
             </div>
         </div>
     );
