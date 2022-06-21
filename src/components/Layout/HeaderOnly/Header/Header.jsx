@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-
+import './Header.css';
 function Header() {
     const navigate = useNavigate();
     const isToken = localStorage.getItem('token');
@@ -38,7 +38,7 @@ function Header() {
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg navbar-light  wrapperHeader">
                 <div className="container-fluid">
                     <button
                         className="navbar-toggler"

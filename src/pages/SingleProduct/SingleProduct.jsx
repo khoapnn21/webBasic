@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../../components/GlobalModuleCss/GlobalModuleCss.css';
 import { addCarts } from '../../features/carts/cartsSlice';
 
-import { useDispatch } from 'react-redux/es/exports';
 const SingleProduct = () => {
-    const dispatch = useDispatch();
     const [product, setProduct] = useState({});
-
     const params = useParams();
-
     const navigate = useNavigate();
+    const carts = useSelector((state) => state.carts);
     const isUser = localStorage.getItem('token');
+    const dispatch = useDispatch();
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products/${params.id}`)
             .then((res) => res.json())
@@ -19,7 +17,7 @@ const SingleProduct = () => {
             .catch((error) => {
                 console.error('Error:', error);
             });
-    }, [params.id]);
+    }, []);
 
     const checkUser = () => {
         if (isUser) {
@@ -28,16 +26,21 @@ const SingleProduct = () => {
             navigate('/userLogin');
         }
     };
-
     const handleAddToCart = () => {
-        dispatch(
-            addCarts({
-                productId: params.id,
-                quantity: 1,
-            }),
-        );
+        if (carts.find((c) => c.productId === Number(params.id))) {
+            let subState = carts.find(
+                (c) => c.productId === Number(params.id),
+            ).quantity;
+            return (subState += 1);
+        } else {
+            dispatch(
+                addCarts({
+                    productId: Number(params.id),
+                    quantity: 1,
+                }),
+            );
+        }
     };
-
     return (
         <>
             <div className="row row-cols-2 row-cols-md-2 g-4">
@@ -47,7 +50,7 @@ const SingleProduct = () => {
                             src={product.image}
                             className="card-img-top"
                             alt={product.category}
-                            style={{ height: 450 }}
+                            style={{ height: 450, width: 450 }}
                         />
                     </div>
                 </div>
@@ -64,20 +67,18 @@ const SingleProduct = () => {
                         </div>
                     </div>
                     <br />
-                    <div>
-                        <button
-                            className="btn btn-outline-primary"
-                            onClick={handleAddToCart}
-                        >
-                            Add to Cart
-                        </button>
-                        <button
-                            className="btn btn-outline-success"
-                            onClick={checkUser}
-                        >
-                            My Cart
-                        </button>
-                    </div>
+                    <button
+                        className="btn btn-outline-success"
+                        onClick={handleAddToCart}
+                    >
+                        Add to Cart
+                    </button>
+                    <button
+                        className="btn btn-outline-success"
+                        onClick={checkUser}
+                    >
+                        My Cart
+                    </button>
                 </div>
             </div>
         </>

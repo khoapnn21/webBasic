@@ -1,3 +1,17 @@
 .wrapperSideBar {
-    width: 360px;
+    background-color: rgb((243, 229, 229) 243, 229, 229);
+    min-height: 500px;
+    margin: 10px;
+}
+
+.cateList {
+    list-style: none;
+}
+
+.cateList li {
+    transition: width 1s, height 1s;
+}
+.cateList li:hover {
+    transform: scale(1.1);
+    cursor: pointer;
 }

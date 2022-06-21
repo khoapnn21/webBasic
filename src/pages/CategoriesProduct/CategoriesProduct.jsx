@@ -16,7 +16,7 @@ const CategoriesProduct = () => {
 
     return (
         <>
-            <div className="row row-cols-2 row-cols-md-5 g-4 ">
+            <div className="row row-cols-2 row-cols-md-4 g-4 ">
                 {categories.map((cate) => (
                     <div className="col" key={cate.id}>
                         <div className="card h-100 ">

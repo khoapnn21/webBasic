@@ -7,14 +7,16 @@ import UserLogin from '../pages/UserLogin/UserLogin';
 import Cart from '../pages/Cart/Cart';
 import HeaderOnly from '../components/Layout/HeaderOnly/index';
 import NoPage from '../pages/NoPage/NoPage';
+import PriceProduct from '../pages/PriceProduct/PriceProduct';
 const publicRoutes = [
     { path: '/', component: Home, layout: HeaderOnly },
     { path: '/allProducts', component: AllProducts },
     { path: '/allCategories', component: AllCategories },
-    { path: '/allProducts/:id', component: SingleProduct, layout: HeaderOnly },
+    { path: '/allProducts/:id', component: SingleProduct },
     { path: '/allCategories/:category', component: CategoriesProduct },
     { path: '/userLogin', component: UserLogin, layout: HeaderOnly },
     { path: '/cart', component: Cart, layout: HeaderOnly },
+    { path: '/priceProduct', component: PriceProduct },
 
     { path: '*', component: NoPage },
 ];

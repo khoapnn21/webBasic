@@ -1,7 +1,11 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteCart } from '../../features/carts/cartsSlice';
 import './Cart.css';
 function CartProduct({ product, onDelete }) {
     const [counter, setcounter] = useState(product.quantity);
+    const dispatch = useDispatch();
+
     const handleDecrease = (number) => {
         setcounter(counter - 1);
     };

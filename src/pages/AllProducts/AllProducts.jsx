@@ -1,9 +1,11 @@
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { addCarts } from '../../features/carts/cartsSlice';
 import '../../components/GlobalModuleCss/GlobalModuleCss.css';
 
 const AllProducts = () => {
     const products = useSelector((state) => state.products);
+
     return (
         <>
             <div className="row row-cols-2 row-cols-md-3 g-4 ">
@@ -24,9 +26,11 @@ const AllProducts = () => {
                                 <p className="card-text">{product.title}</p>
                             </div>
                             <div className="card-footer">
-                                <small className="text-muted">
-                                    $ {product.price}
-                                </small>
+                                <div>
+                                    <small className="text-muted">
+                                        $ {product.price}
+                                    </small>
+                                </div>
                             </div>
                         </div>
                     </div>
