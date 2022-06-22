@@ -11,6 +11,8 @@ const SingleProduct = () => {
     const carts = useSelector((state) => state.carts);
     const isUser = localStorage.getItem('token');
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
+
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products/${params.id}`)
             .then((res) => res.json())
@@ -18,6 +20,7 @@ const SingleProduct = () => {
             .catch((error) => {
                 console.error('Error:', error);
             });
+        setIsLoading(!isLoading);
     }, []);
 
     const checkUser = () => {
@@ -48,40 +51,46 @@ const SingleProduct = () => {
     };
     return (
         <>
-            <div className="row row-cols-2 row-cols-md-2 g-4">
-                <div className="col">
-                    <div>
-                        <img
-                            src={product.image}
-                            className="card-img-top"
-                            alt={product.category}
-                            style={{ height: 450, width: 450 }}
-                        />
-                    </div>
-                </div>
-                <div className="col">
-                    <div>
-                        <div className="card-body">
-                            <h5 className="card-title">{product.title}</h5>
-                            <p className="card-text">{product.description}</p>
+            {!isLoading ? (
+                <Loading />
+            ) : (
+                <div className="row row-cols-2 row-cols-md-2 g-4">
+                    <div className="col">
+                        <div>
+                            <img
+                                src={product.image}
+                                className="card-img-top"
+                                alt={product.category}
+                                style={{ height: 450, width: 450 }}
+                            />
                         </div>
-                        <div className="text-muted">${product.price}</div>
                     </div>
-                    <br />
-                    <button
-                        className="btn btn-outline-success"
-                        onClick={handleAddToCart}
-                    >
-                        Add to Cart
-                    </button>
-                    <button
-                        className="btn btn-outline-success"
-                        onClick={checkUser}
-                    >
-                        My Cart
-                    </button>
+                    <div className="col">
+                        <div>
+                            <div className="card-body">
+                                <h5 className="card-title">{product.title}</h5>
+                                <p className="card-text">
+                                    {product.description}
+                                </p>
+                            </div>
+                            <div className="text-muted">${product.price}</div>
+                        </div>
+                        <br />
+                        <button
+                            className="btn btn-outline-success"
+                            onClick={handleAddToCart}
+                        >
+                            Add to Cart
+                        </button>
+                        <button
+                            className="btn btn-outline-success"
+                            onClick={checkUser}
+                        >
+                            My Cart
+                        </button>
+                    </div>
                 </div>
-            </div>
+            )}
         </>
     );
 };

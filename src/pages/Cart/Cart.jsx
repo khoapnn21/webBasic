@@ -7,7 +7,7 @@ function Cart() {
     const navigate = useNavigate();
     const productItem = useSelector((state) => state.products);
     const carts = useSelector((state) => state.carts);
-
+    console.log(carts);
     const cartProductId = carts.map((product) =>
         Object.assign(
             { quantity: product.quantity },
