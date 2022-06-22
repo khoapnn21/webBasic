@@ -5,7 +5,7 @@ function HeaderOnly({ children }) {
     return (
         <div>
             <Header />
-            <div className="container-fluid" style={{ minHeight: 1000 }}>
+            <div className="container-fluid" style={{ minHeight: 1500 }}>
                 {children}
             </div>
             <Footer />
