@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { addCarts, increaseCarts } from '../../features/carts/cartsSlice';
+import Loading from '../Loading/Loading';
 
 const SingleProduct = () => {
     const [product, setProduct] = useState({});
@@ -49,7 +50,7 @@ const SingleProduct = () => {
         <>
             <div className="row row-cols-2 row-cols-md-2 g-4">
                 <div className="col">
-                    <div className="card">
+                    <div>
                         <img
                             src={product.image}
                             className="card-img-top"
@@ -59,16 +60,12 @@ const SingleProduct = () => {
                     </div>
                 </div>
                 <div className="col">
-                    <div className="card">
+                    <div>
                         <div className="card-body">
                             <h5 className="card-title">{product.title}</h5>
                             <p className="card-text">{product.description}</p>
                         </div>
-                        <div className="card-footer">
-                            <small className="text-muted">
-                                $ {product.price}
-                            </small>
-                        </div>
+                        <div className="text-muted">${product.price}</div>
                     </div>
                     <br />
                     <button

@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import '../../components/GlobalModuleCss/GlobalModuleCss.css';
+import Loading from '../Loading/Loading';
 
 const CategoriesProduct = () => {
     const [categories, setCategories] = useState([]);
+
     const cates = useParams();
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products/category/${cates.category}`)

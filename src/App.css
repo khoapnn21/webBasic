@@ -41,11 +41,3 @@
         transform: rotate(360deg);
     }
 }
-
-button {
-    width: 20%;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    display: block;
-}

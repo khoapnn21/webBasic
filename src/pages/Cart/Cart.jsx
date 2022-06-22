@@ -56,11 +56,6 @@ function Cart() {
                                     ))}
                                 </div>
                             )}
-                            {/* <div>
-                                {cartProductId.map((product) => (
-                                    <CartProduct product={product} />
-                                ))}
-                            </div> */}
                         </div>
                     </div>
                     <div className="modal-footer">

@@ -1,15 +1,16 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
 import logo from './logo.svg';
-import { publicRoutes } from './routes';
-import DefaultLayout from './components/Layout/DefaultLayout/index';
+import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import './App.css';
+import { publicRoutes } from './routes';
+import DefaultLayout from './components/Layout/DefaultLayout/index';
 import { addProducts } from './features/products/productsSlice';
 import { addUsers } from './features/users/usersSlice';
 import { addCarts } from './features/carts/cartsSlice';
+import Loading from './pages/Loading/Loading';
 
-import { Fragment } from 'react';
+import './App.css';
 function App() {
     const dispatch = useDispatch();
     const userName = localStorage.getItem('userName');
@@ -71,36 +72,7 @@ function App() {
                                 path={route.path}
                                 element={
                                     <Layout>
-                                        {!isLoading ? (
-                                            <div className="d-flex justify-content-center my-5">
-                                                <div
-                                                    className="spinner-grow"
-                                                    role="status"
-                                                >
-                                                    <span className="visually-hidden">
-                                                        Loading...
-                                                    </span>
-                                                </div>
-                                                <div
-                                                    className="spinner-border"
-                                                    role="status"
-                                                >
-                                                    <span className="visually-hidden">
-                                                        Loading...
-                                                    </span>
-                                                </div>
-                                                <div
-                                                    className="spinner-grow"
-                                                    role="status"
-                                                >
-                                                    <span className="visually-hidden">
-                                                        Loading...
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <Page />
-                                        )}
+                                        {!isLoading ? <Loading /> : <Page />}
                                     </Layout>
                                 }
                             />

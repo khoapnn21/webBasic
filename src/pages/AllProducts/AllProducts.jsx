@@ -1,6 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import { addCarts } from '../../features/carts/cartsSlice';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import '../../components/GlobalModuleCss/GlobalModuleCss.css';
 
 const AllProducts = () => {
