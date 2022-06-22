@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { addCarts } from '../../features/carts/cartsSlice';
+import { addCarts, increaseCarts } from '../../features/carts/cartsSlice';
 
 const SingleProduct = () => {
     const [product, setProduct] = useState({});
@@ -26,12 +26,16 @@ const SingleProduct = () => {
             navigate('/userLogin');
         }
     };
+
     const handleAddToCart = () => {
         if (carts.find((c) => c.productId === Number(params.id))) {
-            let subState = carts.find(
-                (c) => c.productId === Number(params.id),
-            ).quantity;
-            return (subState += 1);
+            let subState = carts.find((c) => c.productId === Number(params.id));
+            dispatch(
+                increaseCarts({
+                    id: subState.productId,
+                    quantity: subState.quantity,
+                }),
+            );
         } else {
             dispatch(
                 addCarts({

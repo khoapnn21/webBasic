@@ -1,16 +1,21 @@
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteCart } from '../../features/carts/cartsSlice';
+import {
+    deleteCarts,
+    decreaseCarts,
+    increaseCarts,
+} from '../../features/carts/cartsSlice';
 import './Cart.css';
-function CartProduct({ product, onDelete }) {
-    const [counter, setcounter] = useState(product.quantity);
+function CartProduct({ product }) {
     const dispatch = useDispatch();
-
-    const handleDecrease = (number) => {
-        setcounter(counter - 1);
+    const prices = (product.quantity * product.price).toFixed(2);
+    const handleDecrease = () => {
+        dispatch(decreaseCarts({ id: product.id, quantity: product.quantity }));
     };
-    const handleIncrease = (number) => {
-        setcounter(counter + 1);
+    const handleIncrease = () => {
+        dispatch(increaseCarts({ id: product.id, quantity: product.quantity }));
+    };
+    const handleDelete = () => {
+        dispatch(deleteCarts({ id: product.id }));
     };
     return (
         <>
@@ -23,21 +28,34 @@ function CartProduct({ product, onDelete }) {
                     src={product.image}
                     alt={product.title}
                 />
-                <span className="">Quantity: </span>
+                <span>
+                    <b>Quantity: </b>
+                </span>
                 <button className="btn " type="button" onClick={handleDecrease}>
                     -
                 </button>
-                <input className="inputQuantity" readOnly value={counter} />
+                <input
+                    className="inputQuantity"
+                    readOnly
+                    value={product.quantity}
+                />
                 <button className="btn " type="button" onClick={handleIncrease}>
                     +
                 </button>
                 <button
                     className="btn btn-outline-danger"
                     type="button "
-                    onClick={() => onDelete(product.id)}
+                    onClick={handleDelete}
                 >
                     Delete
                 </button>
+                <span>
+                    <b>Price:</b> ${product.price}
+                </span>
+                <span>
+                    {' '}
+                    <b>Total Price:</b> ${prices}
+                </span>
             </div>
         </>
     );

@@ -4,7 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 function PriceProduct() {
     const locations = useLocation();
     const URLparams = new URLSearchParams(locations.search);
-    console.log(URLparams);
     const min = URLparams.get('min');
     const max = URLparams.get('max');
 

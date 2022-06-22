@@ -32,8 +32,13 @@
 .quantity {
     display: inline-block;
     height: 100px;
+    width: 100%;
 }
 
 .btn-outline-danger {
     width: 80px;
+}
+
+.productPrice {
+    width: 100%;
 }

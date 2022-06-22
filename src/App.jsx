@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import { publicRoutes } from './routes';
 import DefaultLayout from './components/Layout/DefaultLayout/index';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { addProducts } from './features/products/productsSlice';
 import { addUsers } from './features/users/usersSlice';
@@ -14,7 +14,7 @@ function App() {
     const dispatch = useDispatch();
     const userName = localStorage.getItem('userName');
     const users = useSelector((state) => state.users);
-
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         fetch(`https://fakestoreapi.com/users`)
             .then((res) => res.json())
@@ -24,6 +24,7 @@ function App() {
             .catch((error) => {
                 console.error('Error:', error);
             });
+        setIsLoading(!isLoading);
     }, []);
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products`)
@@ -34,6 +35,7 @@ function App() {
             .catch((error) => {
                 console.error('Error:', error);
             });
+        setIsLoading(!isLoading);
     }, []);
     useEffect(() => {
         if (userName) {
@@ -47,6 +49,7 @@ function App() {
                 .catch((error) => {
                     console.error('Error:', error);
                 });
+            setIsLoading(!isLoading);
         }
     }, [users]);
     return (
@@ -68,7 +71,36 @@ function App() {
                                 path={route.path}
                                 element={
                                     <Layout>
-                                        <Page />
+                                        {!isLoading ? (
+                                            <div className="d-flex justify-content-center my-5">
+                                                <div
+                                                    className="spinner-grow"
+                                                    role="status"
+                                                >
+                                                    <span className="visually-hidden">
+                                                        Loading...
+                                                    </span>
+                                                </div>
+                                                <div
+                                                    className="spinner-border"
+                                                    role="status"
+                                                >
+                                                    <span className="visually-hidden">
+                                                        Loading...
+                                                    </span>
+                                                </div>
+                                                <div
+                                                    className="spinner-grow"
+                                                    role="status"
+                                                >
+                                                    <span className="visually-hidden">
+                                                        Loading...
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <Page />
+                                        )}
                                     </Layout>
                                 }
                             />

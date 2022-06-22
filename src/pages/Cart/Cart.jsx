@@ -1,15 +1,12 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import CartProduct from './CartProduct';
 
 import './Cart.css';
-import CartProduct from './CartProduct';
 function Cart() {
     const navigate = useNavigate();
-
     const productItem = useSelector((state) => state.products);
     const carts = useSelector((state) => state.carts);
-    console.log(carts);
 
     const cartProductId = carts.map((product) =>
         Object.assign(
@@ -17,10 +14,12 @@ function Cart() {
             productItem.find((p) => p.id === product.productId),
         ),
     );
-    const [items, setItems] = useState(cartProductId);
-    const handleDelete = (itemId) => {
-        setItems(items.filter((i) => i.id !== itemId));
-    };
+
+    let sumTotalPrices = cartProductId
+        .map((product) => product.price * product.quantity)
+        .reduce((preVal, currentVal) => preVal + currentVal, 0)
+        .toFixed(2);
+
     return (
         <div>
             <div className=" modal-dialog modal-fullscreen-xl-down cartBorder">
@@ -36,21 +35,41 @@ function Cart() {
                         ></button>
                     </div>
                     <div className="modal-body ">
-                        <div className="d-grid gap-5 d-flex m-5">
-                            <div>
-                                {items.map((product) => (
-                                    <CartProduct
-                                        product={product}
-                                        onDelete={handleDelete}
-                                        key={'cart1' + product.id}
-                                    />
+                        <div className="d-flex m-5">
+                            {cartProductId.length === 0 ? (
+                                <div className="mx-auto d-flex">
+                                    <div style={{ width: 300, padding: 10 }}>
+                                        <b>Your shopping cart is empty</b>
+                                    </div>
+                                    <button
+                                        className="btn btn-outline-success w-50 d-flex justify-content-center "
+                                        onClick={() => navigate('/allProducts')}
+                                    >
+                                        {' '}
+                                        Go shopping{' '}
+                                    </button>
+                                </div>
+                            ) : (
+                                <div>
+                                    {cartProductId.map((product) => (
+                                        <CartProduct product={product} />
+                                    ))}
+                                </div>
+                            )}
+                            {/* <div>
+                                {cartProductId.map((product) => (
+                                    <CartProduct product={product} />
                                 ))}
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <div>Date: {new Date().toISOString()} </div>
-
+                        <div className="col">
+                            Date: {new Date().toISOString()}{' '}
+                        </div>{' '}
+                        <div className="col">
+                            <b>All Total Price:</b> ${sumTotalPrices}{' '}
+                        </div>
                         <button
                             type="button"
                             className="btn btn-secondary"
