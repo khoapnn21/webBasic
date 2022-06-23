@@ -21,22 +21,22 @@ function App() {
             .then((res) => res.json())
             .then((item) => {
                 dispatch(addUsers(item));
+                setIsLoading(true);
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
-        setIsLoading(!isLoading);
     }, []);
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products`)
             .then((res) => res.json())
             .then((item) => {
                 dispatch(addProducts(item));
+                setIsLoading(true);
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
-        setIsLoading(!isLoading);
     }, []);
     useEffect(() => {
         if (userName) {
@@ -46,11 +46,11 @@ function App() {
                 .then((item) => {
                     const product = item[0].products;
                     dispatch(addCarts(product));
+                    setIsLoading(true);
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                 });
-            setIsLoading(!isLoading);
         }
     }, [users]);
     return (

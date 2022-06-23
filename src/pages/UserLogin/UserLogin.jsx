@@ -21,6 +21,8 @@ function UserLogin() {
                 navigate('/');
                 localStorage.setItem('token', json.token);
                 localStorage.setItem('userName', userName);
+                localStorage.setItem('isLoading', false);
+
             })
 
             .catch((error) => {
