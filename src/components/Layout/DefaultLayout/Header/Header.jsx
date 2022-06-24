@@ -1,8 +1,12 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import './Header.css';
-function Header() {
+function Header({ onInputText }) {
     const navigate = useNavigate();
     const isToken = localStorage.getItem('token');
+    const [inputText, setInputText] = useState('');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const rangeNumbers = searchParams.get('rangeNumber');
 
     const checkUser = () => {
         localStorage.clear();
@@ -35,7 +39,9 @@ function Header() {
             </button>
         );
     }
-
+    const handleSearch = () => {
+        setSearchParams({ inputText });
+    };
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light  wrapperHeader">
@@ -84,6 +90,27 @@ function Header() {
                                 </Link>
                             </li>
                         </ul>
+                        <form className="d-flex">
+                            <input
+                                className="form-control me-2"
+                                type="search"
+                                placeholder="Search"
+                                aria-label="Search"
+                                onChange={(e) =>
+                                    setInputText(e.target.value.toLowerCase())
+                                }
+                            />
+                            <button
+                                className="btn btn-outline-success"
+                                type="submit"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleSearch();
+                                }}
+                            >
+                                Search
+                            </button>
+                        </form>
                         <div>
                             {iconBag}
 

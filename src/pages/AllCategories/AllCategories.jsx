@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../components/GlobalModuleCss/GlobalModuleCss.css';
-import Loading from '../Loading/Loading';
 
 const AllCategories = () => {
     const [categories, setCategories] = useState([]);

@@ -16,11 +16,15 @@ const SingleProduct = () => {
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products/${params.id}`)
             .then((res) => res.json())
-            .then((item) => setProduct(item))
+
+            .then((item) => {
+                setProduct(item);
+                setIsLoading(true);
+            })
+
             .catch((error) => {
                 console.error('Error:', error);
             });
-        setIsLoading(!isLoading);
     }, []);
 
     const checkUser = () => {

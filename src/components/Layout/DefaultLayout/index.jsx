@@ -7,9 +7,10 @@ function DefaultLayout({ children }) {
         <div className="wrapper">
             <Header />
             <div className=" d-flex">
-                <div className="col-md-2 ">
+                <div className="col-md-2 border ">
                     <SideBar />
                 </div>
+
                 <div className="col-md-10 content">{children}</div>
             </div>
             <Footer />
